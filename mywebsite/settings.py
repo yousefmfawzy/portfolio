@@ -77,10 +77,15 @@ WSGI_APPLICATION = 'mywebsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'yousefmfawzy$default',  # Correct database name
+        'USER': 'yousefmfawzy',
+        'PASSWORD': 'Yousef+123789',
+        'HOST': 'yousefmfawzy.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
     }
 }
+
 
 
 # Password validation
