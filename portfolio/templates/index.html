@@ -80,19 +80,12 @@
                                     <i class='bx bxl-{{ li.social_name|lower }}'></i>
                                 </a>
                             {% endfor %}
-                            
-                            <!-- <a href="#" class="about__social-icon"><i class='bx bxl-linkedin' ></i></a>
-                            <a href="#" class="about__social-icon"><i class='bx bxl-github' ></i></a>
-                            <a href="#" class="about__social-icon"><i class='bx bxl-dribbble' ></i></a> -->
                         </div>
                     </div>
 
 
                     <div>
-                        <!-- Add this download button -->
-                        <!-- <a href="{% static '\media_root\cv\{{about.cv}}' %}" class="about__resume-btn" download>
-                            <i class='bx bx-download'></i> Download Resume
-                        </a> -->
+                        
 
                         <a href="{{ about.cv.url }}" class="about__resume-btn" download>
                             <i class='bx bx-download'></i> Download Resume
@@ -106,14 +99,7 @@
                 <h2 class="section-title">Skills</h2>
 
                 <div class="skills__container bd-grid">
-                    <!-- <div class="skills__box">
-                        {% for skill in skill_category %}
-                            <h3 class="skills__subtitle">{{skill.category_name}}</h3>
-                            {% for s in skill %}
-                                <span class="skills__name">{{s.skill_name}}</span>
-                            {% endfor %}
-                        {% endfor %}
-                    </div> -->
+                    
                     <div class="skills__box">
                         {% for category in skill_categories %}
                             <h3 class="skills__subtitle">{{ category.category_name }}</h3>
@@ -135,48 +121,18 @@
                 <h2 class="section-title">Portfolio</h2>
 
                 <div class="portfolio__container bd-grid">
-                    <div class="portfolio__img">
-                        <img src="{% static 'img/work1.jpg' %}" alt="" class="portfolio__img">
+                    {% for project in portfolio_projects %}  <!-- Use updated key -->
+                        <div class="portfolio__img">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="portfolio__img">
 
-                        <div class="portfolio__link">
-                            <a href="#" class="portfolio__link-name">View details</a>
+                            <div class="portfolio__link">
+                                <a href="{{ project.project_link }}" class="portfolio__link-name">View details</a>
+                            </div>  
                         </div>
-                    </div>
-                    <div class="portfolio__img">
-                        <img src="{% static 'img/work2.jpg' %}" alt="" class="portfolio__img">
+                    {% empty %}
+                        <p>No projects available at the moment.</p>
+                    {% endfor %}
 
-                        <div class="portfolio__link">
-                            <a href="#" class="portfolio__link-name">View details</a>
-                        </div>
-                    </div>
-                    <div class="portfolio__img">
-                        <img src="{% static 'img/work3.jpg' %}" alt="" class="portfolio__img                        <div class="portfolio__link">
-
-                        <div class="portfolio__link">
-                            <a href="#" class="portfolio__link-name">View details</a>
-                        </div>
-                    </div>
-                    <div class="portfolio__img">
-                        <img src="{% static 'img/work4.jpg' %}" alt="">
-
-                        <div class="portfolio__link">
-                            <a href="#" class="portfolio__link-name">View details</a>
-                        </div>
-                    </div>
-                    <div class="portfolio__img">
-                        <img src="{% static 'img/work5.jpg' %}" alt="">
-
-                        <div class="portfolio__link">
-                            <a href="#" class="portfolio__link-name">View details</a>
-                        </div>
-                    </div>
-                    <div class="portfolio__img">
-                        <img src="{% static 'img/work6.jpg' %}" alt="">
-
-                        <div class="portfolio__link">
-                            <a href="#" class="portfolio__link-name">View details</a>
-                        </div>
-                    </div>
                 </div>
             </section>
 
@@ -187,24 +143,26 @@
                 <div class="contact__container bd-grid">
                     <div class="contact__info">
                         <h3 class="contact__subtitle">EMAIL</h3>
-                        <span class="contact__text">info.mail.com</span>
+                        <span class="contact__text">{{contact.email}}</span>
 
                         <h3 class="contact__subtitle">PHONE</h3>
-                        <span class="contact__text">+20 999-999</span>
+                        <span class="contact__text">{{contact.phone}}</span>
 
                         <h3 class="contact__subtitle">ADDRESS</h3>
-                        <span class="contact__text">My contry</span>
+                        <span class="contact__text">{{contact.address}}</span>
                     </div>
 
-                    <form action="" class="contact__form">
+                    <form action=""  method="POST" class="contact__form">
+                        {% csrf_token %}
                         <div class="contact__inputs">
-                            <input type="text" placeholder="Name" class="contact__input">
-                            <input type="mail" placeholder="Email" class="contact__input">
+                            <input type="text" name="name"  placeholder="Name" class="contact__input" required>
+                            <input type="mail" name="email" placeholder="Email" class="contact__input" required>
                         </div>
 
-                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
 
-                        <input type="submit" value="submit" class="contact__button">
+                        <textarea name="message" id="" cols="0" rows="10" class="contact__input" placeholder="Your message..." required></textarea>
+                        <input type="submit" value="Submit" class="contact__button">
+
                     </form>
                 </div>
             </section>
@@ -214,8 +172,8 @@
         <footer class="footer section">
             <div class="footer__container bd-grid">
                 <div class="footer__data">
-                    <h2 class="footer__title">Yousef Fawzy</h2>
-                    <p class="footer__text">I'm Yousef Fawzy and this is my personal website</p>
+                    <h2 class="footer__title">{{home.name}}</h2>
+                    <p class="footer__text">I'm {{home.name}} and this is my personal website</p>
                 </div>
 
                 <div class="footer__data">
@@ -231,9 +189,12 @@
                 
                 <div class="footer__data">
                     <h2 class="footer__title">FOLLOW</h2>
-                    <a href="#" class="footer__social"><i class='bx bxl-facebook' ></i></a>
-                    <a href="#" class="footer__social"><i class='bx bxl-instagram' ></i></a>
-                    <a href="#" class="footer__social"><i class='bx bxl-twitter' ></i></a>
+                    
+                        {% for li in social_links %}
+                            <a href="{{ li.social_url }}" class="about__social-icon">
+                                <i class='bx bxl-{{ li.social_name|lower }}'></i>
+                            </a>
+                        {% endfor %}
                 </div>
 
 

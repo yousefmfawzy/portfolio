@@ -103,7 +103,7 @@ class Portfolio(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='portfolio/' ,validators =[validate_image_size])
     description = models.TextField(blank=True)
-    project_link = models.URLField(blank=True)
+    project_link = models.URLField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
