@@ -24,10 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n@x@4c$&%ongrdhqb#+oldp9=05+n9l0)uh2l24qiu(#r2qj_-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = [
+    'yousefmfawzy.pythonanywhere.com',
+    'localhost',
+    '127.0.0.1'
+]
 
 # Application definition
 
@@ -127,13 +130,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 # Ensure these settings exist
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')  # For production
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Changed from static_root/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_dev'),  # For development
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media_root/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Changed from static/media_root/
 
 
 
