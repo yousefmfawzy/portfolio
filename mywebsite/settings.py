@@ -132,7 +132,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Changed from static_root/
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_dev'),  # For development
+    os.path.join(BASE_DIR, 'static_dev'),
+    '/home/yousefmfawzy/venv/lib/python3.10/site-packages/django/contrib/admin/static',
 ]
 
 MEDIA_URL = '/media/'
